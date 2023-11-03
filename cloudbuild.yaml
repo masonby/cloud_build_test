@@ -12,8 +12,8 @@ steps:
            '--build-arg', 'PACKER_VERSION_SHA256SUM=${_PACKER_VERSION_SHA256SUM}',
            '.']
   #download wizcli
-  - name: 'gcr.io/cloud-builders/curl'
-    args: ["-Lo wizcli https://wizcli.app.wiz.io/latest/wizcli-linux-amd64"]
+  - name: 'gcr.io/cloud-builders/curl -Lo wizcli'
+    args: ["https://wizcli.app.wiz.io/latest/wizcli-linux-amd64"]
   - name: 'gcr.io/cloud-builders/chmod'
     args: ["+x wizcli"]
 

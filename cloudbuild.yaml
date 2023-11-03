@@ -17,8 +17,7 @@ steps:
     args:
     - "-c"
     - |
-       curl -Lo wizcli https://wizcli.app.wiz.io/latest/wizcli-linux-amd64 &&
-       chmod +x wizcli
+       curl -Lo wizcli https://wizcli.app.wiz.io/latest/wizcli-linux-amd64
    #chmod
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: "bash"

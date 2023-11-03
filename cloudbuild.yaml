@@ -13,8 +13,9 @@ steps:
            '.']
   #download wizcli
   - name: 'gcr.io/cloud-builders/gloud'
-    entrypoint: "bash"
+    entrypoint: 'bash'
     args: 
+    - '-c'
     - |
       curl -Lo wizcli https://wizcli.app.wiz.io/latest/wizcli-linux-amd64) &&
       chmod +x wizcli

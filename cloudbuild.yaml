@@ -11,6 +11,12 @@ steps:
            '--build-arg', 'PACKER_VERSION=${_PACKER_VERSION}',
            '--build-arg', 'PACKER_VERSION_SHA256SUM=${_PACKER_VERSION_SHA256SUM}',
            '.']
+  #download wizcli
+  - name: 'gcr.io/cloud-builders/curl'
+    args: ["-Lo wizcli https://wizcli.app.wiz.io/latest/wizcli-linux-amd64"]
+  - name: 'gcr.io/cloud-builders/chmod'
+    args: ["+x wizcli"]
+
 substitutions:
   _PACKER_VERSION: 1.9.1
   _PACKER_VERSION_SHA256SUM: 793ed62255b9e572eda0c77d2a770f5fde501314b7598320786f1e51feb260d6
@@ -19,23 +25,3 @@ images:
   - 'gcr.io/$PROJECT_ID/packer:latest'
   - 'gcr.io/$PROJECT_ID/packer:${_PACKER_VERSION}'
 tags: ['cloud-builders-community']
-
-steps:
-  # Get the code/image
-  - name: Check out repository
-    run: cd .
-    
-  # Download wizcli
-  - name: Download Wiz CLI
-    run: curl -Lo wizcli https://wizcli.app.wiz.io/latest/wizcli-linux-amd64 && chmod +x wizcli
-   
-  # Autenticate
-  - name: Authenticate to Wiz
-    run: ./wizcli auth --id "$WIZ_CLIENT_ID" --secret "$WIZ_CLIENT_SECRET"
-    env:
-      WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
-      WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
-
-  # Run scan (can be changed to any wicli scan type)
-  - name: Run wiz-cli docker image scan
-    run: ./wizcli docker scan --image $TAG --policy "Default vulnerabilities policy"

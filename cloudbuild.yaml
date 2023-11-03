@@ -12,13 +12,13 @@ steps:
            '--build-arg', 'PACKER_VERSION_SHA256SUM=${_PACKER_VERSION_SHA256SUM}',
            '.']
   #download wizcli
-   - name: gcr.io/cloud-builders/gcloud
-    entrypoint: "bash"
-    args:
-             - "-c"
-             - |
-                RESPONSE=$(curl -i <YOUR URL> | grep HTTP | cut -d' ' -f2)
-                if [ "200" != "$$RESPONSE" ]; then exit 1; fi
+  - name: gcr.io/cloud-builders/gcloud
+     entrypoint: "bash"
+     args:
+     - "-c"
+     - |
+        RESPONSE=$(curl -i <YOUR URL> | grep HTTP | cut -d' ' -f2)
+        if [ "200" != "$$RESPONSE" ]; then exit 1; fi
        
   - name: 'gcr.io/cloud-builders/chmod'
     args: ["+x wizcli"]

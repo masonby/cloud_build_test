@@ -22,8 +22,6 @@ tags: ['cloud-builders-community']
 
 # This is an example of a scan job declaration for container image scanning.
 
-name: 'wiz-cli'
-on: [pull_request]
 
 jobs:
   wiz-cli-image-scan:

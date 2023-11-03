@@ -20,35 +20,22 @@ images:
   - 'gcr.io/$PROJECT_ID/packer:${_PACKER_VERSION}'
 tags: ['cloud-builders-community']
 
-# This is an example of a scan job declaration for container image scanning.
-
-
-    env:
-      SCAN_PATH: "." # Set the relative path in the repo to build the image from
-      TAG: "docker-tag" # Set the tag to use for the image
-      POLICY: "Default vulnerabilities policy" # Set the desired Wiz CLI policy to use
-
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-    defaults:
-      run:
-        shell: bash
-
-    steps:
-    # Get the code/image
-    - name: Check out repository
-      run: cd $SCAN_PATH
+steps:
+  # Get the code/image
+  - name: Check out repository
+    run: cd .
     
-    # Download wizcli
-    - name: Download Wiz CLI
-      run: curl -Lo wizcli https://wizcli.app.wiz.io/latest/wizcli-linux-amd64 && chmod +x wizcli
+  # Download wizcli
+  - name: Download Wiz CLI
+    run: curl -Lo wizcli https://wizcli.app.wiz.io/latest/wizcli-linux-amd64 && chmod +x wizcli
    
-   # Autenticate
-    - name: Authenticate to Wiz
-      run: ./wizcli auth --id "$WIZ_CLIENT_ID" --secret "$WIZ_CLIENT_SECRET"
-      env:
-        WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
-        WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
+  # Autenticate
+  - name: Authenticate to Wiz
+    run: ./wizcli auth --id "$WIZ_CLIENT_ID" --secret "$WIZ_CLIENT_SECRET"
+    env:
+      WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
+      WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
 
-    # Run scan (can be changed to any wicli scan type)
-    - name: Run wiz-cli docker image scan
-      run: ./wizcli docker scan --image $TAG --policy "$POLICY"
+  # Run scan (can be changed to any wicli scan type)
+  - name: Run wiz-cli docker image scan
+    run: ./wizcli docker scan --image $TAG --policy "Default vulnerabilities policy"

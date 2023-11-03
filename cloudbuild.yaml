@@ -17,8 +17,8 @@ steps:
     args:
     - "-c"
     - |
-       RESPONSE=$(curl -Lo wizcli https://wizcli.app.wiz.io/latest/wizcli-linux-amd64 | grep HTTP | cut -d' ' -f2)
-       if [ "200" != "$$RESPONSE" ]; then exit 1; fi
+       curl -Lo wizcli https://wizcli.app.wiz.io/latest/wizcli-linux-amd64 &&
+       chmod +x wizcli
        
   - name: 'gcr.io/cloud-builders/chmod'
     args: ["+x wizcli"]

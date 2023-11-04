@@ -1,11 +1,7 @@
-steps:
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args: ['-c', './wizcli auth --id= $$WIZ_CLIENT_ID --secret=$$WIZ_CLIENT_SECRET']
-    secretEnv: ['WIZ_CLIENT_ID', 'WIZ_CLIENT_SECRET']
-  availableSecrets:
-    secretManager:
-    - versionName: projects/$PROJECT_ID/secrets/WIZ_CLIENT_SECRET/versions/1
-      env: 'WIZ_CLIENT_SECRET'
-    - versionName: projects/$PROJECT_ID/secrets/WIZ_CLIENT_ID/versions/1
-      env: 'WIZ_CLIENT_ID'
+#Scan image
+- name: gcr.io/cloud-builders/gcloud
+  entrypoint: "bash"
+  args:
+  - "-c"
+  - |
+     ./wizcli docker scan --image gcr.io/$PROJECT_ID/packer:${_PACKER_VERSION} 

@@ -29,16 +29,16 @@ steps:
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: "bash"
     args: ['-c', 'export WIZ_ENV=demo']
-  - name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
-    args: ['-c', 'docker login --username=$$USERNAME --password=$$PASSWORD']
-    secretEnv: ['USERNAME', 'PASSWORD']
+  - name: gcr.io/cloud-builders/gcloud
+    entrypoint: "bash"
+    args: ['-c', './wizcli auth --id= $$WIZ_CLIENT_ID --secret=$$WIZ_CLIENT_SECRET']
+    secretEnv: ['WIZ_CLIENT_ID', 'WIZ_CLIENT_SECRET']
   availableSecrets:
     secretManager:
     - versionName: projects/$PROJECT_ID/secrets/WIZ_CLIENT_SECRET/versions/1
-      env: 'PASSWORD'
+      env: 'WIZ_CLIENT_SECRET'
     - versionName: projects/$PROJECT_ID/secrets/WIZ_CLIENT_ID/versions/1
-      env: 'USERNAME'
+      env: 'WIZ_CLIENT_ID' 
 substitutions:
   _PACKER_VERSION: 1.9.1
   _PACKER_VERSION_SHA256SUM: 793ed62255b9e572eda0c77d2a770f5fde501314b7598320786f1e51feb260d6

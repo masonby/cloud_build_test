@@ -42,7 +42,6 @@ availableSecrets:
     env: 'WIZ_CLIENT_SECRET'
   - versionName: projects/$PROJECT_ID/secrets/WIZ_CLIENT_ID/versions/2
     env: 'WIZ_CLIENT_ID'
-
 - name: gcr.io/cloud-builders/gcloud
   entrypoint: "bash"
   args:

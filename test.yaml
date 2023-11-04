@@ -1,3 +1,4 @@
+steps:
 #Scan image
 - name: gcr.io/cloud-builders/gcloud
   entrypoint: "bash"

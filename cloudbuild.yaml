@@ -28,7 +28,7 @@ steps:
    #secret manager
 - name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: 'bash'
-  args: ['-c', './wizcli auth --id= $$WIZ_CLIENT_ID --secret=$$WIZ_CLIENT_SECRET']
+  args: ['-c', './wizcli auth --id=$$WIZ_CLIENT_ID --secret=$$WIZ_CLIENT_SECRET']
   secretEnv: ['WIZ_CLIENT_ID', 'WIZ_CLIENT_SECRET']
 availableSecrets:
   secretManager:
